@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <math.h>
+
+int main() {
+    float monto_credito, tasa_interes, monto_mensual;
+    int num_anios, i;
+
+    printf("Ingrese el monto del crédito: ");
+    scanf("%f", &monto_credito);
+
+    printf("Ingrese la tasa de interés anual (en porcentaje): ");
+    scanf("%f", &tasa_interes);
+
+    printf("Ingrese el número de años: ");
+    scanf("%d", &num_anios);
+
+    float tasa_mensual = tasa_interes / 100 / 12;
+
+    monto_mensual = monto_credito * (tasa_mensual / (1 - pow(1 + tasa_mensual, -num_anios * 12)));
+
+    printf("\nAño\tInterés Simple\tInterés Compuesto\tCuota mensual anual\n");
+    for (i = 1; i <= num_anios; i++) {
+        float interes_simple_anual = monto_credito * tasa_interes / 100;
+        float interes_compuesto_anual = monto_credito * pow(1 + tasa_interes / 100, i) - monto_credito;
+
+        printf("%d\t%.2f\t\t%.2f\t\t%.2f\n", i, interes_simple_anual, interes_compuesto_anual, monto_mensual * 12);
+
+        monto_credito = monto_credito - monto_mensual * 12;
+    }
+
+    return 0;
+}
